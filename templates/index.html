@@ -1,0 +1,9 @@
+<form action="{{ url_for('predict')}}" method="post">
+    <p>What is your age?</p>
+     <input type="number" name="Age" placeholder="Enter your age" 			  		required="required" /><br> 
+    <p>What is your gender?</p>
+     <label><input type="radio" name="Sex" value="1" required="required" 		/>Male</label>
+        <label><input type="radio" name="Sex" value="0" required="required" 		/>Female</label><br>
+     <button type="submit">Predict</button>
+</form>
+<p> {{ prediction }} </p>

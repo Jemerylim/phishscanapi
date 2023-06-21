@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request, render_template
 import os
 app = Flask(__name__)
 
@@ -8,8 +8,8 @@ incomes = [
 
 
 @app.route('/')
-def get_incomes():
-    return jsonify(incomes)
+def home():
+    return render_template('index.html')
 
 
 @app.route('/', methods=['POST'])
