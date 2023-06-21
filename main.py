@@ -12,7 +12,7 @@ incomes = [
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('/web/templates/index.html')
 
 
 @app.route('/', methods=['POST'])
