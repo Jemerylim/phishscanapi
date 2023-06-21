@@ -2,8 +2,8 @@ from flask import Flask, request, render_template
 import os
 app = Flask(__name__,
             static_url_path='', 
-            static_folder='statics',
-            template_folder='templates')
+            static_folder='/statics',
+            template_folder='/templates')
 
 #railway
 incomes = [
