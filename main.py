@@ -13,7 +13,6 @@ incomes = [
 
 @app.route('/')
 def home():
-    app.use("/static", express.static('./static/'));
     return render_template('index.html')
 
 
