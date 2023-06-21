@@ -1,6 +1,10 @@
 from flask import Flask, request, render_template
 import os
-app = Flask(__name__)
+app = Flask(__name__,
+            static_url_path='', 
+            static_folder='statics',
+            template_folder='templates')
+
 #railway
 incomes = [
     { 'description': 'salary', 'amount': 5000 }
@@ -9,6 +13,7 @@ incomes = [
 
 @app.route('/')
 def home():
+    app.use("/static", express.static('./static/'));
     return render_template('index.html')
 
 
