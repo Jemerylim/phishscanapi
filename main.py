@@ -21,7 +21,7 @@ def form():
 @app.route('/form', methods=['POST'])
 def submitform():
     # Get the JSON data from the request
-    data = request.json
+    data = request.form.values()
     return render_template("email_form.html", prediction=data)
 
 '''@app.route('/predict',methods=['POST'])
