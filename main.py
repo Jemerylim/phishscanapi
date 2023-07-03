@@ -1,14 +1,13 @@
 from flask import Flask, request, render_template
 import os
+import pickle
+import numpy as np
 app = Flask(__name__,
             static_url_path='', 
             static_folder='web/statics',
             template_folder='web/templates')
-#railway
-#incomes = [
-#    { 'description': 'salary', 'amount': 5000 }
-#]
 
+model = pickle.load(open('models/phishing.pkl', 'rb'))
 
 @app.route('/')
 def home():
@@ -24,7 +23,10 @@ def submitform():
     email_title = request.form.get('email-title')
     email_content = request.form.get('email-content')
     data = email_title + email_content
-    return render_template("email_form.html", prediction=data)
+    features = [np.array([email_title,email_content])]
+    prediction = model.predict(features)
+    result = prediction[0]
+    return render_template("email_form.html", prediction=result)
 
 '''@app.route('/predict',methods=['POST'])
 def predict():
