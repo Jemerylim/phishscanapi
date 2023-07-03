@@ -14,14 +14,15 @@ app = Flask(__name__,
 def home():
     return render_template('index.html')
 
-@app.route('/form', methods = ['GET', 'POST'])
+@app.route('/form', methods = ['GET'])
 def form():
     return render_template("email_form.html")
 
-""" @app.route('/', methods=['POST'])
-def add_income():
-    incomes.append(request.get_json())
-    return '', 204 """
+@app.route('/form', methods=['POST'])
+def predict():
+    # Get the JSON data from the request
+    data = request.json
+    return render_template("email_form.html", prediction=data)
 
 @app.route('/predict',methods=['POST'])
 def predict():

@@ -6,7 +6,17 @@
 </head>
 <body>
   <div class="container">
-    <h1>Hello</h1>
+    <h1>Lets Scan!</h1>
+    <form action="{{ url_for('form')}}" method="post">
+      <label for="email-title">Email Title:</label>
+      <input type="text" id="email-title" name="email-title" required>
+
+      <label for="email-content">Email Content:</label>
+      <textarea id="email-content" name="email-content" required></textarea>
+
+      <button type="submit">Check</button>
+      </form>
+      <p> {{ prediction }} </p>
   </div>
 </body>
 </html>
