@@ -14,6 +14,9 @@ app = Flask(__name__,
 def home():
     return render_template('index.html')
 
+@app.route('/form', methods = ['GET', 'POST'])
+def form():
+    return render_template("email_form.html")
 
 """ @app.route('/', methods=['POST'])
 def add_income():
