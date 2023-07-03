@@ -47,9 +47,11 @@ p {
 
 label {
     display: block;
+    font-size: 24px;
+    color: #000000;
 }
 
 .input{
-    width: 100%;
+    width: 60vw;
     box-sizing: border-box;
 }
