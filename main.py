@@ -5,20 +5,20 @@ app = Flask(__name__,
             static_folder='web/statics',
             template_folder='web/templates')
 #railway
-incomes = [
-    { 'description': 'salary', 'amount': 5000 }
-]
+#incomes = [
+#    { 'description': 'salary', 'amount': 5000 }
+#]
 
 
 @app.route('/')
 def home():
-    return render_template('/web/templates/index.html')
+    return render_template('index.html')
 
 
-@app.route('/', methods=['POST'])
+""" @app.route('/', methods=['POST'])
 def add_income():
     incomes.append(request.get_json())
-    return '', 204
+    return '', 204 """
 
 @app.route('/predict',methods=['POST'])
 def predict():
