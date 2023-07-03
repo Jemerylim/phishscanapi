@@ -53,5 +53,6 @@ label {
 
 .input{
     width: 60vw;
+    height: 40px;
     box-sizing: border-box;
 }
