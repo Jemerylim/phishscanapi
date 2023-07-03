@@ -45,6 +45,11 @@ p {
     margin-bottom: 20px;
   }
 
-  label {
+label {
     display: block;
-  }
+}
+
+.input{
+    width: 100%;
+    box-sizing: border-box;
+}
