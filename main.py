@@ -19,12 +19,12 @@ def form():
     return render_template("email_form.html")
 
 @app.route('/form', methods=['POST'])
-def predict():
+def form():
     # Get the JSON data from the request
     data = request.json
     return render_template("email_form.html", prediction=data)
 
-@app.route('/predict',methods=['POST'])
+'''@app.route('/predict',methods=['POST'])
 def predict():
     # Get the JSON data from the request
     data = request.json
@@ -48,7 +48,7 @@ def predict():
     # Return the predictions as JSON response
     response = {'predictions': predictions.tolist()}
     return jsonify(response) """
-
+'''
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
