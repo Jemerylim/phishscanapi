@@ -19,7 +19,7 @@ def form():
     return render_template("email_form.html")
 
 @app.route('/form', methods=['POST'])
-def form():
+def submitform():
     # Get the JSON data from the request
     data = request.json
     return render_template("email_form.html", prediction=data)
