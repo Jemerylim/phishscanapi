@@ -33,6 +33,7 @@ def submitform():
     #result = prediction[0]
     to_predict_list = request.form.to_dict()
     to_predict_list =list(to_predict_list.values())
+    to_predict_list = pd.get_dummies(to_predict_list)
     to_predict_list = list(map(int,to_predict_list))
     to_predict = np.array(to_predict_list).reshape(1,12)
     result = model.predict(to_predict)
