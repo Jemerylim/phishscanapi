@@ -21,18 +21,27 @@ def form():
 @app.route('/form', methods=['POST'])
 def submitform():
     # Get the JSON data from the request
-    email_title = request.form.get('email-title')
-    email_content = request.form.get('email-content')
+    #email_title = request.form.get('email-title')
+    #email_content = request.form.get('email-content')
     #data = request.form
    #nested_list = [[data[key][nested_key] for nested_key in data[key]] for key in data]
     #prediction = model.predict([[np.array(nested_list)]])
-    data = [email_title,email_content]
-    data_encoded = pd.get_dummies(data)
-    features = np.array(data_encoded)
-    prediction = model.predict(features)
-    result = prediction[0]
+    #data = [email_title,email_content]
+    #data_encoded = pd.get_dummies(data)
+    #features = np.array(data_encoded)
+    #prediction = model.predict(features)
+    #result = prediction[0]
+    to_predict_list = request.form.to_dict()
+    to_predict_list =list(to_predict_list.values())
+    to_predict_list = list(map(int,to_predict_list))
+    to_predict = np.array(to_predict_list).reshape(1,12)
+    result = model.predict(to_predict)
+
+
     return render_template("email_form.html", prediction=result)
     #return render_template("email_form.html", prediction=data)
+
+
 
 '''@app.route('/predict',methods=['POST'])
 def predict():
