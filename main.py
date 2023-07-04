@@ -23,8 +23,9 @@ def submitform():
     # Get the JSON data from the request
     email_title = request.form.get('email-title')
     email_content = request.form.get('email-content')
-    data = request.form.get_json(force=True)
-    prediction = model.predict([[np.array(data['exp'])]])
+    data = request.form
+    nested_list = [[data[key][nested_key] for nested_key in data[key]] for key in data]
+    prediction = model.predict([[np.array(nested_list)]])
     #features = [np.array([email_title,email_content])]
     #prediction = model.predict(features)
     result = prediction[0]
