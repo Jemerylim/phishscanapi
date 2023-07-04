@@ -28,7 +28,7 @@ def submitform():
     #prediction = model.predict([[np.array(nested_list)]])
     data = [email_title,email_content]
     data_encoded = pd.get_dummies(data)
-    features = [np.array(data_encoded)]
+    features = np.array(data_encoded)
     prediction = model.predict(features)
     result = prediction[0]
     return render_template("email_form.html", prediction=result)
