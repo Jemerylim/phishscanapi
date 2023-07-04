@@ -23,12 +23,11 @@ def submitform():
     email_title = request.form.get('email-title')
     email_content = request.form.get('email-content')
     data = email_title + email_content
-    '''
     features = [np.array([email_title,email_content])]
     prediction = model.predict(features)
     result = prediction[0]
-    return render_template("email_form.html", prediction=result)'''
-    return render_template("email_form.html", prediction=data)
+    return render_template("email_form.html", prediction=result)
+    #return render_template("email_form.html", prediction=data)
 
 '''@app.route('/predict',methods=['POST'])
 def predict():
