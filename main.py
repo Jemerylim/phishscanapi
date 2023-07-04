@@ -7,7 +7,7 @@ app = Flask(__name__,
             static_folder='web/statics',
             template_folder='web/templates')
 
-model = pickle.load(open('models/phishing_model.pkl', 'rb'))
+model = pickle.load(open('/models/phishing_model.pkl', 'rb'))
 
 @app.route('/')
 def home():
