@@ -60,7 +60,7 @@ def submitform():
     to_predict = np.array(to_predict_list).reshape(1,12)'''
     training_columns = model.training_columns
     missing_columns = set(training_columns) - set(input_encoded.columns)
-    X_test_encoded = pd.concat([X_test_encoded, pd.DataFrame(columns=list(missing_columns))], axis=1).fillna(0)
+    X_test_encoded = pd.concat([input_encoded, pd.DataFrame(columns=list(missing_columns))], axis=1).fillna(0)
     X_test_encoded = X_test_encoded.reindex(columns=training_columns, fill_value=0)
     result = model.predict(X_test_encoded)
 
