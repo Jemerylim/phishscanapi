@@ -10,6 +10,23 @@ app = Flask(__name__,
 
 model = pickle.load(open('web/statics/models/phishing_model.pkl', 'rb'))
 
+def coin_word_check(email_subject,email_content):
+    coined_words = {'urgent', 'quick', 'job', 'needed', 'account', 'verification',
+               'security', 'alert', 'confirm', 'information', 'suspicious',
+               'login', 'update', 'prize', 'winner', 'unusual activity',
+               'payment required'}
+    subject = str(email_subject.lower())
+    content = str(email_content.lower())
+    found_words = []
+    for word in coined_words:
+        if word in subject or word in content:
+            found_words.append(word)
+            
+    if found_words:
+        return ', '.join(found_words)
+    else:
+        return 'na'
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -20,9 +37,14 @@ def form():
 
 @app.route('/form', methods=['POST'])
 def submitform():
+    email_subject = request.form.get('email-subject')
+    email_url = request.form.get('email-url')
+    email_content = request.form.get('email-content')
+    email_closing = request.form.get('email-closing')
+    coined_word = coin_word_check(email_subject,email_content)
+    input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
     # Get the JSON data from the request
-    #email_title = request.form.get('email-title')
-    #email_content = request.form.get('email-content')
+    input_encoded = pd.get_dummies(input_data)
     #data = request.form
    #nested_list = [[data[key][nested_key] for nested_key in data[key]] for key in data]
     #prediction = model.predict([[np.array(nested_list)]])
@@ -31,12 +53,12 @@ def submitform():
     #features = np.array(data_encoded)
     #prediction = model.predict(features)
     #result = prediction[0]
-    to_predict_list = request.form.to_dict()
+    '''to_predict_list = request.form.to_dict()
     to_predict_list =list(to_predict_list.values())
     to_predict_list = pd.get_dummies(to_predict_list)
     to_predict_list = list(map(int,to_predict_list))
-    to_predict = np.array(to_predict_list).reshape(1,12)
-    result = model.predict(to_predict)
+    to_predict = np.array(to_predict_list).reshape(1,12)'''
+    result = model.predict(input_encoded)
 
 
     return render_template("email_form.html", prediction=result)

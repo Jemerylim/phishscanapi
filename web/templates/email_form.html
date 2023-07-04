@@ -15,13 +15,21 @@
     <h1>Input Your Email!</h1>
     <form action="{{ url_for('form')}}" method="post">
       <div class="form-group">
-      <label for="email-title">Email Title:</label>
-      <input class="input" type="text" id="email-title" name="email-title" required>
+      <label for="email-subject">Email Subject:</label>
+      <input class="input" type="text" id="email-subject" name="email-subject" required>
       </div>
+      <div class="form-group">
+        <label for="email-url">URLs:</label>
+        <input class="input" type="text" id="email-url" name="email-url" >
+        </div>
       <div class="form-group">
       <label for="email-content">Email Content:</label>
       <textarea class="input" id="email-content" name="email-content" required></textarea>
       </div>
+      <div class="form-group">
+        <label for="email-closing">Closing Regards:</label>
+        <input class="input" type="text" id="email-closing" name="email-closing" >
+        </div>
       <button class="button" type="submit">Check</button>
       </form>
       <p> {{ prediction }} </p>
