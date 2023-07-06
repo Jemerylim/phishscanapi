@@ -40,9 +40,10 @@ def submitform():
     email_subject = request.form.get('email-subject')
     email_url = request.form.get('email-url')
     email_content = request.form.get('email-content')
-    email_closing = request.form.get('email-closing')
+    #email_closing = request.form.get('email-closing')
     coined_word = coin_word_check(email_subject,email_content)
-    input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
+    #input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
+    input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word]})
     # Get the JSON data from the request
     input_encoded = pd.get_dummies(input_data)
     #data = request.form
