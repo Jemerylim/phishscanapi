@@ -10,7 +10,8 @@ app = Flask(__name__,
             template_folder='web/templates')
 
 model_naive = pickle.load(open('web/statics/models/phishing_model_naivebayes.pkl', 'rb'))
-model_forest = pickle.load(open('web/statics/models/phishing_model_randomforest.pkl', 'rb'))
+#model_forest = pickle.load(open('web/statics/models/phishing_model_randomforest.pkl', 'rb'))
+
 def coin_word_check(email_subject,email_content):
     coined_words = {'urgent', 'quick', 'job', 'needed', 'account', 'verification',
                'security', 'alert', 'confirm', 'information', 'suspicious',
