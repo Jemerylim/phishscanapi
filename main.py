@@ -10,7 +10,7 @@ app = Flask(__name__,
             template_folder='web/templates')
 
 model_naive = pickle.load(open('web/statics/models/phishing_model_naivebayes.pkl', 'rb'))
-with open('vectorizer.pkl', 'rb') as f:
+with open('web/statics/models/vectorizer.pkl', 'rb') as f:
     vectorizer = pickle.load(f)
 #model_forest = pickle.load(open('web/statics/models/phishing_model_randomforest.pkl', 'rb'))
 
