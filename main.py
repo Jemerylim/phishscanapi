@@ -46,7 +46,8 @@ def submitform():
     coined_word = coin_word_check(email_subject,email_content)
     #input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
     vectorizer = TfidfVectorizer()
-    input_data = email_subject + " " + email_content + " " + coined_word
+    input_data = str(email_subject) + " " + str(email_content) + " " + str(coined_word)
+    print(input_data)
     vectorizer.fit(input_data)
     input_encoded = vectorizer.fit_transform(input_data)
 
