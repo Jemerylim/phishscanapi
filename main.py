@@ -10,6 +10,8 @@ app = Flask(__name__,
             template_folder='web/templates')
 
 model_naive = pickle.load(open('web/statics/models/phishing_model_naivebayes.pkl', 'rb'))
+with open('vectorizer.pkl', 'rb') as f:
+    vectorizer = pickle.load(f)
 #model_forest = pickle.load(open('web/statics/models/phishing_model_randomforest.pkl', 'rb'))
 
 def coin_word_check(email_subject,email_content):
@@ -48,14 +50,13 @@ def submitform():
     vectorizer = TfidfVectorizer()
     input_data = str(email_subject) + " " + str(email_content) + " " + str(coined_word)
     input_data_list =[input_data]
-    vectorizer.fit(input_data_list)
-    input_encoded = vectorizer.fit_transform(input_data_list)
+    user_input_encoded = vectorizer.transform(input_data_list)
 
     """ training_columns = model.training_columns
     missing_columns = set(training_columns) - set(input_encoded.columns)
     X_test_encoded = pd.concat([input_encoded, pd.DataFrame(columns=list(missing_columns))], axis=1).fillna(0)
     X_test_encoded = X_test_encoded.reindex(columns=training_columns, fill_value=0) """
-    result = model_naive.predict(input_encoded)
+    result = model_naive.predict(user_input_encoded)
 
 
     return render_template("email_form.html", prediction=result)
