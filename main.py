@@ -47,8 +47,8 @@ def submitform():
     #input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
     vectorizer = TfidfVectorizer()
     input_data = str(email_subject) + " " + str(email_content) + " " + str(coined_word)
+    vectorizer.fit(input_data)
     input_data_list =[input_data]
-    vectorizer.fit(input_data_list)
     input_encoded = vectorizer.fit_transform(input_data_list)
 
     """ training_columns = model.training_columns
