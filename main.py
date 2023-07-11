@@ -46,14 +46,14 @@ def submitform():
     #input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
     vectorizer = TfidfVectorizer()
     input_data = email_subject + " " + email_content + " " + coined_word
-    vectorizer.fit(input_data)
-    input_encoded = vectorizer.fit_transform(input_data)
+    #vectorizer.fit(input_data)
+    #input_encoded = vectorizer.fit_transform(input_data)
 
     """ training_columns = model.training_columns
     missing_columns = set(training_columns) - set(input_encoded.columns)
     X_test_encoded = pd.concat([input_encoded, pd.DataFrame(columns=list(missing_columns))], axis=1).fillna(0)
     X_test_encoded = X_test_encoded.reindex(columns=training_columns, fill_value=0) """
-    result = model_naive.predict(input_encoded)
+    result = model_naive.predict(input_data)
 
 
     return render_template("email_form.html", prediction=result)
