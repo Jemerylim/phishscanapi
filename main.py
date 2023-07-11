@@ -3,13 +3,14 @@ import os
 import pickle
 import numpy as np
 import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
 app = Flask(__name__,
             static_url_path='', 
             static_folder='web/statics',
             template_folder='web/templates')
 
-model = pickle.load(open('web/statics/models/phishing_model.pkl', 'rb'))
-
+model_naive = pickle.load(open('web/statics/models/phishing_model_naivebayes.pkl', 'rb'))
+model_forest = pickle.load(open('web/statics/models/phishing_model_randomforest.pkl', 'rb'))
 def coin_word_check(email_subject,email_content):
     coined_words = {'urgent', 'quick', 'job', 'needed', 'account', 'verification',
                'security', 'alert', 'confirm', 'information', 'suspicious',
@@ -43,27 +44,16 @@ def submitform():
     #email_closing = request.form.get('email-closing')
     coined_word = coin_word_check(email_subject,email_content)
     #input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
-    input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word]})
-    # Get the JSON data from the request
-    input_encoded = pd.get_dummies(input_data)
-    #data = request.form
-   #nested_list = [[data[key][nested_key] for nested_key in data[key]] for key in data]
-    #prediction = model.predict([[np.array(nested_list)]])
-    #data = [email_title,email_content]
-    #data_encoded = pd.get_dummies(data)
-    #features = np.array(data_encoded)
-    #prediction = model.predict(features)
-    #result = prediction[0]
-    '''to_predict_list = request.form.to_dict()
-    to_predict_list =list(to_predict_list.values())
-    to_predict_list = pd.get_dummies(to_predict_list)
-    to_predict_list = list(map(int,to_predict_list))
-    to_predict = np.array(to_predict_list).reshape(1,12)'''
-    training_columns = model.training_columns
+    vectorizer = TfidfVectorizer()
+    input_data = email_subject + " " + email_content + " " + coined_word
+    vectorizer.fit(input_data)
+    input_encoded = vectorizer.fit_transform(input_data)
+
+    """ training_columns = model.training_columns
     missing_columns = set(training_columns) - set(input_encoded.columns)
     X_test_encoded = pd.concat([input_encoded, pd.DataFrame(columns=list(missing_columns))], axis=1).fillna(0)
-    X_test_encoded = X_test_encoded.reindex(columns=training_columns, fill_value=0)
-    result = model.predict(X_test_encoded)
+    X_test_encoded = X_test_encoded.reindex(columns=training_columns, fill_value=0) """
+    result = model_naive.predict(input_encoded)
 
 
     return render_template("email_form.html", prediction=result)
