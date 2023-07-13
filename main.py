@@ -4,11 +4,13 @@ import pickle
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
+from blacklist_trie import BlackListTrie
 app = Flask(__name__,
             static_url_path='', 
             static_folder='web/statics',
             template_folder='web/templates')
 
+blacklisttrie = BlackListTrie()
 model_naive = pickle.load(open('web/statics/models/phishing_model_naivebayes.pkl', 'rb'))
 with open('web/statics/models/vectorizer.pkl', 'rb') as f:
     vectorizer = pickle.load(f)
@@ -46,21 +48,21 @@ def submitform():
     email_content = request.form.get('email-content')
     #email_closing = request.form.get('email-closing')
     coined_word = coin_word_check(email_subject,email_content)
+    if blacklisttrie.search(email_url):
+        return render_template("email_form.html", prediction='ez')
+    else:
+        return render_template("email_form.html", prediction='scam')
     #input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
     #vectorizer = TfidfVectorizer()
     input_data = str(email_subject) + " " + str(email_content) + " " + str(coined_word)
     input_data_list =[input_data]
     user_input_encoded = vectorizer.transform(input_data_list)
 
-    """ training_columns = model.training_columns
-    missing_columns = set(training_columns) - set(input_encoded.columns)
-    X_test_encoded = pd.concat([input_encoded, pd.DataFrame(columns=list(missing_columns))], axis=1).fillna(0)
-    X_test_encoded = X_test_encoded.reindex(columns=training_columns, fill_value=0) """
     result = model_naive.predict(user_input_encoded)
 
 
     return render_template("email_form.html", prediction=result)
-    #return render_template("email_form.html", prediction=data)
+    
 
 
 
