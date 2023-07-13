@@ -49,19 +49,18 @@ def submitform():
     #email_closing = request.form.get('email-closing')
     coined_word = coin_word_check(email_subject,email_content)
     if blacklisttrie.search(email_url):
-        return render_template("email_form.html", prediction='scam')
-    else:
-        return render_template("email_form.html", prediction='not scam')
+        return render_template("email_form.html", prediction='Your URL is in our Blacklist! Phishing Email Detected!!')
+    else:     
     #input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
-    #vectorizer = TfidfVectorizer()
-    input_data = str(email_subject) + " " + str(email_content) + " " + str(coined_word)
-    input_data_list =[input_data]
-    user_input_encoded = vectorizer.transform(input_data_list)
+        input_data = str(email_subject) + " " + str(email_content) + " " + str(coined_word)
+        input_data_list =[input_data]
+        user_input_encoded = vectorizer.transform(input_data_list)
 
-    result = model_naive.predict(user_input_encoded)
-
-
-    return render_template("email_form.html", prediction=result)
+        result = model_naive.predict(user_input_encoded)
+        if(result == 'Y'):
+            return render_template("email_form.html", prediction='Your URL is not in our Blacklist but the content suggest it is a Phishing email!')
+        else:
+            return render_template("email_form.html", prediction='Your Email is not a Phishing email!')
     
 
 
