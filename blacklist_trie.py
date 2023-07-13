@@ -21,12 +21,21 @@ class BlackListTrie:
         node.is_end_of_word = True
 
     def search(self, url):
-        node = self.root
-        for char in url:
-            if char not in node.children:
+        # Reverse and split the URL
+        components = url.split(".")
+        components.reverse()
+
+        # Perform the search
+        node = trie.root
+        for component in components:
+            if component not in node.children:
                 return False
-            node = node.children[char]
-        return node.is_end_of_word
+            node = node.children[component]
+        else:
+            if node.is_end_of_word:
+                return True
+            else:
+                return False
     
 def create_trie():
     trie = BlackListTrie()
