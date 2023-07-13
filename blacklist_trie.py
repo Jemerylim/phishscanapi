@@ -1,6 +1,6 @@
 import csv
-#csv_file_path = '/datasets/malicious_phish.csv'
-csv_file_path = '/Users/jeremy/Documents/GitHub/phishscanapi/web/statics/datasets/malicious_phish.csv'
+csv_file_path = '/datasets/malicious_phish.csv'
+#csv_file_path = '/Users/jeremy/Documents/GitHub/phishscanapi/web/statics/datasets/malicious_phish.csv'
 malicious_urls=[]
 
 class BlackListTrieNode:
