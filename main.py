@@ -49,7 +49,7 @@ def submitform():
     #email_closing = request.form.get('email-closing')
     coined_word = coin_word_check(email_subject,email_content)
     if blacklisttrie.search(email_url):
-        return render_template("email_form.html", prediction='Your URL is in our Blacklist! Phishing Email Detected!!')
+        return render_template("email_form.html", prediction='Your Email is a Phishing Email!', subprediction='URL was found in our Blacklist!')
     else:     
     #input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
         input_data = str(email_subject) + " " + str(email_content) + " " + str(coined_word)
@@ -58,9 +58,9 @@ def submitform():
 
         result = model_naive.predict(user_input_encoded)
         if(result == 'Y'):
-            return render_template("email_form.html", prediction='Your URL is not in our Blacklist but the content suggest it is a Phishing email!')
+            return render_template("results.html", prediction='Your Email may or may not be a Phishing Email.',subprediction='Your URL is not in our Blacklist but the content suggest it is a Phishing email! Enter at your own risk!')
         else:
-            return render_template("email_form.html", prediction='Your Email is not a Phishing email!')
+            return render_template("results.html", prediction='Your Email is not a Phishing email!',subprediction='')
     
 
 
