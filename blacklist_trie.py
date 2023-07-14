@@ -12,7 +12,7 @@ class BlackListTrie:
     def __init__(self):
         self.root = BlackListTrieNode()
 
-    def insert(self, word):
+    def insert(self, url):
         if url.startswith("http://"):
             url = url[7:]
         elif url.startswith("https://"):
