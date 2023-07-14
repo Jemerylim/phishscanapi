@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PhishScan Results</title>
+  <title>PhishScan Blacklist</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
   <link rel="icon" href="/images/phishscan_icon.png">
 </head>
@@ -13,9 +13,14 @@
        <!--Add more navigation links as needed -->
       </div>
   <div class="container">
-    <h1> {{ prediction }} </h1>
-    <h3> {{ subprediction }} </h3>
-    <a class="button" href='{{ url_for("form") }}'>Back</a>
+    <h1>Input a Phishing Email</h1>
+    <form action="{{ url_for('add')}}" method="post">
+        <div class="form-group">
+        <label for="url">URL:</label>
+        <input class="input" type="text" id="url" name="url" required>
+        </div>
+        <button class="button" type="submit">Check</button>
+    </form>
   </div>
 </body>
 </html>

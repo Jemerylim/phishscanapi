@@ -13,12 +13,25 @@ class BlackListTrie:
         self.root = BlackListTrieNode()
 
     def insert(self, word):
-        node = self.root
-        for char in word:
-            if char not in node.children:
-                node.children[char] = BlackListTrieNode()
-            node = node.children[char]
+        if url.startswith("http://"):
+            url = url[7:]
+        elif url.startswith("https://"):
+            url = url[8:]
+
+        # Reverse and split the URL components
+        components = url.split(".")
+        components.reverse()
+
+        # Traverse the trie and insert the URL components
+        node = trie.root
+        for component in components:
+            component = component.lower()
+            if component not in node.children:
+                node.children[component] = BlackListTrieNode()
+            node = node.children[component]
         node.is_end_of_word = True
+
+        return True
 
     def search(self, url):
         # Reverse and split the URL
@@ -28,6 +41,7 @@ class BlackListTrie:
         # Perform the search
         node = trie.root
         for component in components:
+            component = component.lower()
             if component not in node.children:
                 return False
             node = node.children[component]
@@ -65,6 +79,7 @@ def create_trie():
 
         node = trie.root
         for component in components:
+            component = component.lower()
             if component not in node.children:
                 node.children[component] = BlackListTrieNode()
             node = node.children[component]

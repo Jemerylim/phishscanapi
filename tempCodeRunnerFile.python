@@ -1,0 +1,2 @@
+text= "ewq123daDADAD"
+print(text.lower())
