@@ -13,7 +13,6 @@ class BlackListTrie:
         self.root = BlackListTrieNode()
 
     def insert(self, url):
-        url = url.lower()
         if url.startswith("http://"):
             url = url[7:]
         elif url.startswith("https://"):
@@ -35,7 +34,6 @@ class BlackListTrie:
 
     def search(self, url):
         # Reverse and split the URL
-        url = url.lower()
         components = url.split(".")
         components.reverse()
 
@@ -69,7 +67,6 @@ def create_trie():
 
 
     for url in malicious_urls:
-        url = url.lower()
         if url.startswith("http://"):
             url = url[7:]
         elif url.startswith("https://"):
