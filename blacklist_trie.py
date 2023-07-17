@@ -13,6 +13,7 @@ class BlackListTrie:
         self.root = BlackListTrieNode()
 
     def insert(self, url):
+        url = url.lower()
         if url.startswith("http://"):
             url = url[7:]
         elif url.startswith("https://"):
@@ -25,7 +26,6 @@ class BlackListTrie:
         # Traverse the trie and insert the URL components
         node = trie.root
         for component in components:
-            component = component.lower()
             if component not in node.children:
                 node.children[component] = BlackListTrieNode()
             node = node.children[component]
@@ -35,13 +35,13 @@ class BlackListTrie:
 
     def search(self, url):
         # Reverse and split the URL
+        url = url.lower()
         components = url.split(".")
         components.reverse()
 
         # Perform the search
         node = trie.root
         for component in components:
-            component = component.lower()
             if component not in node.children:
                 return False
             node = node.children[component]
@@ -69,6 +69,7 @@ def create_trie():
 
 
     for url in malicious_urls:
+        url = url.lower()
         if url.startswith("http://"):
             url = url[7:]
         elif url.startswith("https://"):
@@ -79,7 +80,6 @@ def create_trie():
 
         node = trie.root
         for component in components:
-            component = component.lower()
             if component not in node.children:
                 node.children[component] = BlackListTrieNode()
             node = node.children[component]
