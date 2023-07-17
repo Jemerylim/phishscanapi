@@ -4,6 +4,7 @@
   <title>PhishScan Results</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
   <link rel="icon" href="/images/phishscan_icon.png">
+  <script src="/scripts/app.js"></script>
 </head>
 <body>
     <div class="navbar">
@@ -12,12 +13,12 @@
         <a href="/add">Blacklist</a>
        <!--Add more navigation links as needed -->
       </div>
-  <div id="particles-js"></div>
-  <script src="/scripts/app.js"></script>
+  <div id="particles-js">
   <div class="container">
     <h1> {{ prediction }} </h1>
     <h3> {{ subprediction }} </h3>
     <a class="button" href='{{ url_for("form") }}'>Back</a>
+  </div>
   </div>
 </body>
 </html>
