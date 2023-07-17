@@ -33,10 +33,13 @@ class BlackListTrie:
         return True
 
     def search(self, url):
+        if url.startswith("http://"):
+            url = url[7:]
+        elif url.startswith("https://"):
+            url = url[8:]
         # Reverse and split the URL
         components = url.split(".")
         components.reverse()
-
         # Perform the search
         node = trie.root
         for component in components:
