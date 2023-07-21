@@ -87,6 +87,9 @@ label {
   .about-image {
     flex: 1;
     padding: 20px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
   }
   .about-section:nth-child(even) .about-content,
   .about-section:nth-child(odd) .about-image {
