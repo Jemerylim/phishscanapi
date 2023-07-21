@@ -49,7 +49,7 @@ def submitform():
     #email_closing = request.form.get('email-closing')
     coined_word = coin_word_check(email_subject,email_content)
     if blacklisttrie.search(email_url):
-        return render_template("results.html", prediction='Your Email is a Phishing Email!', subprediction='URL was found in our Blacklist!')
+        return render_template("results.html", prediction='This email has been flagged as potentially phishing-related.', subprediction='We have cross-checked the URL of this email against our Blacklist database, and there was a match. (Head to our Blacklist Page to find out more!)', subtext="To safeguard your personal information and prevent any potential security risks, we strongly advise you to exercise extreme caution when interacting with the content of this email. Avoid clicking on any suspicious links or providing sensitive information until the legitimacy of the sender and the email's contents can be verified.",footnote='Stay Vigilant!')
     else:     
     #input_data = pd.DataFrame({'Email_Subject': [email_subject], 'Email_Content': [email_content],'URL_Title':[email_url],'Coined.Word':[coined_word],'Closing_Remarks':[email_closing]})
         input_data = str(email_subject) + " " + str(email_content) + " " + str(coined_word)
@@ -58,9 +58,9 @@ def submitform():
 
         result = model_naive.predict(user_input_encoded)
         if(result == 'Y'):
-            return render_template("results.html", prediction='Your Email may or may not be a Phishing Email.',subprediction='Your URL is not in our Blacklist but the content suggest it is a Phishing email! Enter at your own risk!')
+            return render_template("results.html", prediction='Your Email may or may not be a Phishing Email.',subprediction='The URL entered is not a match with our Blacklist database. However, after thorough assessment, some elements of the email content may be phishing-related. ',subtext="Please be caution and stay vigilant when interacting with the content of this email. Phishing attempts often evolve and might not always trigger Blacklist matches, making it essential to scrutinize any unexpected or suspicious emails. ",footnote="Stay Vigilant!")
         else:
-            return render_template("results.html", prediction='Your Email is not a Phishing email!',subprediction='')
+            return render_template("results.html", prediction='Hooray! This email is free from any phishing concerns.',subprediction='We have thoroughly assessed the email content and cross-checked the URL against our Blacklist database, and it has been verified to be safe.',subtext="You can proceed with confidence and safety when interacting with this email. However, it's always prudent to remain vigilant and exercise caution when dealing with any unsolicited emails or unexpected attachments.",footnote='Stay Vigilant!')
     
 @app.route('/add')
 def add():
@@ -70,8 +70,11 @@ def add():
 def submitadd():
     url = request.form.get('url')
     blacklisttrie.insert(url)
-    return render_template("results.html", prediction='The URL has been added to the Blacklist!')
+    return render_template("results.html", prediction='Thank you for submitting this URL, it will be added to our Blacklist database.',subprediction="Your contribution plays a crucial role in fortifying the security measures and protecting our community from potential threats and malicious activities.")
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
