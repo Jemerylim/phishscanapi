@@ -13,11 +13,10 @@
     <a href="/about">About</a>
        <!--Add more navigation links as needed -->
       </div>
-  <div class="container">
+  <div class="container" id="result-container">
     <h1> {{ prediction }} </h1>
     <h3> {{ subprediction }} </h3>
-    <br/>
-    <h5>{{ subtext }}</h4>
+    <p>{{ subtext }}</p>
     <h3>{{ footnote }}</h3>
 
     <a class="button" href='{{ url_for("form") }}'>Back</a>
