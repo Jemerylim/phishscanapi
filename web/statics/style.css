@@ -94,6 +94,28 @@ label {
     order: -1;
   }
   .image {
-    max-width: 100%;
+    max-width: 300px;
     height: auto;
+  }
+  .about-mission{
+    padding: 40px;
+  }
+  .about-page{
+    margin-left: 10%;
+    width: 80%;
+    text-align: justify;
+  }
+
+  @media (max-width: 768px) {
+    .about-section {
+      flex-direction: column;
+    }
+    .about-content,
+    .about-image {
+      order: 0;
+      padding: 10px;
+    }
+    .about-image {
+      display: none; /* Hide the image on small screens */
+    }
   }
