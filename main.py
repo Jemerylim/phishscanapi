@@ -17,8 +17,9 @@ with open('web/statics/models/vectorizer.pkl', 'rb') as f:
 #model_forest = pickle.load(open('web/statics/models/phishing_model_randomforest.pkl', 'rb'))
 
 def coin_word_check(email_subject,email_content):
+    
     coined_words = {'account','alert','bank','billing','confirm','login','verify','update','security','urgent','payment','suspended','information','assistance','limited','verify','action','unauthorized','reactivate','notice','verify','password','unusual','access','verify','important','change','verify','assistance','verify','notification','request','help','suspicious','confidential','fraud','reminder','expire','exceeded','resolution','validate','encrypted','critical','quick','job','needed','verification','login','cash','prize','winner'}
-
+    
     subject = str(email_subject.lower())
     content = str(email_content.lower())
     found_words = []
