@@ -62,13 +62,8 @@ def create_trie():
 
         # Iterate over each row in the CSV file
         for row in csv_reader:
-            # Access data in each row
-            # Example: Assuming the CSV has two columns 'Name' and 'Age'
             if(row[1] != 'benign'):
                 malicious_urls.append(row[0])
-
-            # Do something with the data
-       # print(malicious_urls)
 
 
     for url in malicious_urls:

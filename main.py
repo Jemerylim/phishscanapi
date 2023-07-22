@@ -17,10 +17,8 @@ with open('web/statics/models/vectorizer.pkl', 'rb') as f:
 #model_forest = pickle.load(open('web/statics/models/phishing_model_randomforest.pkl', 'rb'))
 
 def coin_word_check(email_subject,email_content):
-    coined_words = {'urgent', 'quick', 'job', 'needed', 'account', 'verification',
-               'security', 'alert', 'confirm', 'information', 'suspicious',
-               'login', 'update', 'prize', 'winner', 'unusual activity',
-               'payment required'}
+    coined_words = {'account','alert','bank','billing','confirm','login','verify','update','security','urgent','payment','suspended','information','assistance','limited','verify','action','unauthorized','reactivate','notice','verify','password','unusual','access','verify','important','change','verify','assistance','verify','notification','request','help','suspicious','confidential','fraud','reminder','expire','exceeded','resolution','validate','encrypted','critical','quick','job','needed','verification','login','cash','prize','winner'}
+
     subject = str(email_subject.lower())
     content = str(email_content.lower())
     found_words = []
@@ -40,6 +38,14 @@ def home():
 @app.route('/form')
 def form():
     return render_template("email_form.html")
+
+@app.route('/add')
+def add():
+    return render_template("blacklist_add.html")
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/form', methods=['POST'])
 def submitform():
@@ -62,9 +68,6 @@ def submitform():
         else:
             return render_template("results.html", prediction='Hooray! This email is free from any phishing concerns.',subprediction='We have thoroughly assessed the email content and cross-checked the URL against our Blacklist database, and it has been verified to be safe.',subtext="You can proceed with confidence and safety when interacting with this email. However, it's always prudent to remain vigilant and exercise caution when dealing with any unsolicited emails or unexpected attachments.",footnote='Stay Vigilant!')
     
-@app.route('/add')
-def add():
-    return render_template("blacklist_add.html")
 
 @app.route('/add', methods=['POST'])
 def submitadd():
@@ -72,9 +75,6 @@ def submitadd():
     blacklisttrie.insert(url)
     return render_template("results.html", prediction='Thank you for submitting this URL, it will be added to our Blacklist database.',subprediction="Your contribution plays a crucial role in fortifying the security measures and protecting our community from potential threats and malicious activities.")
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
